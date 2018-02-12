@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dojo Message Board</title>
+</head>
+<body>
+	<h1>Dojo Message Board</h1>
+	<form action="/new" method="post">
+		<p>Name: <input type="text" name="name"></p>
+		<p>Message: 
+			<textarea name="message"></textarea></p>
+		<input type="submit" value="Post message">	
+	</form>
+
+	<% for (let post of list){ %>
+	<h3>Message #<%=list.indexOf(post) + 1%></h3>
+	<p>Name: <%=post.name%></p>
+	<p>Message: <%=post.text%></p>
+	<%if(post.comments){%>
+		<%for(let comment of post.comments){%>
+			<h4>Comment #<%=post.comments.indexOf(comment) + 1%></h4>
+			<p>Name: <%=comment.name%></p>
+			<p>Comment: <%=comment.text%></p>
+			<%}%>
+	<%}%>
+	<form action="/new_comment" method="post">
+		<p>Name: <input type="text" name="name"></p>
+		<p>Comment: 
+			<textarea name="comment"></textarea></p>
+		<input type="hidden" name="post_id" value="<%=post._id%>">	
+		<input type="submit" value="Post comment">	
+	</form>
+	<% } %>
+
+</body>
+</html>
